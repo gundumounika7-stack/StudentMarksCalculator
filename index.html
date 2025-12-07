@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Student Marks Calculator</title>
+<style>
+  body{font-family:Arial,Helvetica,sans-serif;background:#f7f9fc;margin:0;display:flex;align-items:center;justify-content:center;height:100vh}
+  .card{background:white;padding:20px 24px;border-radius:10px;box-shadow:0 6px 20px rgba(0,0,0,0.08);width:360px;max-width:95%}
+  h1{font-size:20px;margin:0 0 12px;text-align:center}
+  label{display:block;margin:8px 0 4px;font-size:13px}
+  input[type="text"], input[type="number"]{width:100%;padding:8px 10px;border:1px solid #d7dee9;border-radius:6px;font-size:14px;box-sizing:border-box}
+  .row{display:flex;gap:8px}
+  .small{flex:1}
+  button{margin-top:12px;width:100%;padding:10px;border-radius:8px;border:0;background:#2563eb;color:white;font-weight:600;cursor:pointer}
+  .result{margin-top:14px;padding:10px;border-radius:8px;background:#f1f5ff;border:1px solid #dbeafe}
+  .muted{color:#555;font-size:13px}
+  .flex-between{display:flex;justify-content:space-between;align-items:center}
+</style>
+</head>
+<body>
+  <div class="card">
+    <h1>Student Marks Calculator</h1>
+
+    <label for="name">Name</label>
+    <input id="name" type="text" value="Sumanth" placeholder="Enter student name">
+
+    <label for="m1">Subject 1 (out of 100)</label>
+    <input id="m1" type="number" value="85" min="0" max="100">
+
+    <label for="m2">Subject 2 (out of 100)</label>
+    <input id="m2" type="number" value="90" min="0" max="100">
+
+    <label for="m3">Subject 3 (out of 100)</label>
+    <input id="m3" type="number" value="78" min="0" max="100">
+
+    <label for="m4">Subject 4 (out of 100)</label>
+    <input id="m4" type="number" value="88" min="0" max="100">
+
+    <label for="m5">Subject 5 (out of 100)</label>
+    <input id="m5" type="number" value="92" min="0" max="100">
+
+    <button id="calcBtn">Calculate</button>
+
+    <div id="out" class="result" aria-live="polite">
+      <div class="flex-between"><div class="muted">Total</div><div id="total">433 / 500</div></div>
+      <div class="flex-between"><div class="muted">Percentage</div><div id="percentage">86.60%</div></div>
+      <div class="flex-between"><div class="muted">Grade</div><div id="grade">B</div></div>
+    </div>
+    <div style="margin-top:10px;font-size:12px;color:#666">Tip: change numbers and click <strong>Calculate</strong> during your presentation.</div>
+  </div>
+
+<script>
+  function calc() {
+    const name = document.getElementById('name').value || 'Student';
+    const m1 = Number(document.getElementById('m1').value) || 0;
+    const m2 = Number(document.getElementById('m2').value) || 0;
+    const m3 = Number(document.getElementById('m3').value) || 0;
+    const m4 = Number(document.getElementById('m4').value) || 0;
+    const m5 = Number(document.getElementById('m5').value) || 0;
+
+    const total = m1 + m2 + m3 + m4 + m5;
+    const percentage = (total / 5);
+    // Grade rules (you can change thresholds here)
+    let grade = 'F';
+    if (percentage >= 90) grade = 'A';
+    else if (percentage >= 75) grade = 'B';
+    else if (percentage >= 60) grade = 'C';
+    else if (percentage >= 50) grade = 'D';
+    else grade = 'F';
+
+    document.getElementById('total').textContent = `${total} / 500`;
+    document.getElementById('percentage').textContent = `${percentage.toFixed(2)}%`;
+    document.getElementById('grade').textContent = grade;
+  }
+
+  document.getElementById('calcBtn').addEventListener('click', calc);
+
+  // Also recalc live whenever user changes a field (optional)
+  ['m1','m2','m3','m4','m5','name'].forEach(id => {
+    document.getElementById(id).addEventListener('keydown', function(e){
+      if(e.key === 'Enter') calc();
+    });
+  });
+
+  // initial run to match values already in inputs
+  calc();
+</script>
+</body>
+</html>
