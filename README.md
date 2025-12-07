@@ -10,7 +10,7 @@ Simple Java program that calculates total marks, percentage and grade for a stud
 4. Run: `java StudentMarksCalculator`
 
 ## Sample output
-Name:  pavan
+Name:  rithu
 Total Marks: 490 / 500
 Percentage: 98%
 Grade: A
